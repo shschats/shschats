@@ -1,12 +1,15 @@
-const domain = process.env.NEXTAUTH_URL || window.location.origin;
+const domain = process.env.NEXTAUTH_URL;
 
 export async function isUserBannedGET(authorEmail: string) {
-  const response = await fetch(`${domain}/api/ban/status?userEmail=${authorEmail}`, {
-    headers: {
-      "Cache-Control": "no-store, must-revalidate",
-    },
-    cache: "no-cache",
-  });
+  const response = await fetch(
+    `${domain}/api/ban/status?userEmail=${authorEmail}`,
+    {
+      headers: {
+        "Cache-Control": "no-store, must-revalidate",
+      },
+      cache: "no-cache",
+    }
+  );
 
   if (response.ok) {
     const data = await response.json();
