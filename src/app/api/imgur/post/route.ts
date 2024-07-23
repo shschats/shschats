@@ -28,6 +28,12 @@ async function uploadFile(file: File): Promise<string | null> {
     const formData = new FormData();
     formData.append(file.type.startsWith('image') ? 'image' : 'video', file);
 
+    // Convert FormData.entries() to an array and log entries
+    const entries = Array.from(formData.entries());
+    entries.forEach(([key, value]) => {
+        console.log(`FormData entry: ${key} = ${value}`);
+    });
+
     const responseImgur = await fetch("https://api.imgur.com/3/upload", {
         method: "POST",
         headers: myHeaders,
