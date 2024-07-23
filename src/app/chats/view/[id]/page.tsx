@@ -44,7 +44,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           return isVideo ? (
             <video key={attachment} src={attachment} controls className="lg:max-h-48 max-h-32 bg-gray-100 border border-gray-300 object-scale-down" />
           ) : (
-            <Image key={attachment} src={attachment} alt="Attachment" className="lg:max-h-48 max-h-32 bg-gray-100 border border-gray-300 object-scale-down" />
+            <img key={attachment} src={attachment} alt="Attachment" className="lg:max-h-48 max-h-32 bg-gray-100 border border-gray-300 object-scale-down" />
           );
         })}
         </div>

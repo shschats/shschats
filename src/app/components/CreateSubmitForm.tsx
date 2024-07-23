@@ -1,6 +1,10 @@
 "use client";
 
-import { arrowBackOutline, createOutline, documentAttachOutline } from "ionicons/icons";
+import {
+  arrowBackOutline,
+  createOutline,
+  documentAttachOutline,
+} from "ionicons/icons";
 import Icon from "./Icons";
 import { FormEvent, useEffect, useState } from "react";
 import Notification from "./Notification";
@@ -111,7 +115,6 @@ export default function CreateSubmitForm({ session }: any) {
   return (
     <main className="flex justify-center py-10 px-3 min-h-screen relative">
       <div className="bg-shsgreen border-4 border-solid border-black rounded-md lg:w-3/5 w-full py-6 flex flex-col items-center shadow-black shadow-sm relative">
-    
         <form
           onSubmit={handleSubmit}
           className="flex flex-col items-center gap-10 p-2 lg:w-3/4 w-full h-full"
@@ -144,7 +147,7 @@ export default function CreateSubmitForm({ session }: any) {
 
                 <div className="w-full h-48 bg-gray-100 border border-gray-300 overflow-hidden flex justify-center items-center">
                   {preview.startsWith("data:image") ? (
-                    <Image
+                    <img
                       src={preview}
                       alt={`preview-${index}`}
                       className="object-cover h-full w-full"
@@ -160,13 +163,13 @@ export default function CreateSubmitForm({ session }: any) {
           </div>
           <div className="flex-grow" />
           <div className="flex w-full justify-between">
-          <RedirectBtn
-            className="flex items-center p-3 bg-shsyellow text-black rounded-sm hover:bg-shsdarkyellow transition duration-200 shadow-black shadow-sm"
-            url="/chats"
-          >
-            <Icon icon={arrowBackOutline} />
-            Back
-          </RedirectBtn>
+            <RedirectBtn
+              className="flex items-center p-3 bg-shsyellow text-black rounded-sm hover:bg-shsdarkyellow transition duration-200 shadow-black shadow-sm"
+              url="/chats"
+            >
+              <Icon icon={arrowBackOutline} />
+              Back
+            </RedirectBtn>
 
             <label className="cursor-pointer rounded-sm p-2 bg-gray-200 text-black flex items-center gap-1 shadow-black shadow-sm hover:fade-in-color hover:bg-gray-300">
               <Icon icon={documentAttachOutline} /> Attach files
@@ -179,7 +182,6 @@ export default function CreateSubmitForm({ session }: any) {
                 hidden
               />
             </label>
-            
 
             <button
               disabled={isLoading}
