@@ -7,7 +7,7 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": process.env.ACCESS_CONTROL_ALLOW_HEADERS!,
 };
 
-export async function middleware(req: NextRequest) {/*
+export async function middleware(req: NextRequest) {
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
     return new NextResponse(null, { headers: corsHeaders });
@@ -30,6 +30,6 @@ export async function middleware(req: NextRequest) {/*
 
     return NextResponse.redirect(new URL("/", req.url));
   }
-  */
+  
   return NextResponse.next();
 }

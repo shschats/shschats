@@ -12,12 +12,12 @@ export async function POST(req: Request) {
         const postAttachments = formData.getAll('attachments[]');
         console.log('Attachments:', postAttachments);
 
-        await Promise.all(postAttachments.map(async (attachment) => {
+        /*await Promise.all(postAttachments.map(async (attachment) => {
             if (attachment instanceof File) {
                 const link = await uploadFile(attachment);
                 if (link) uploadedLinks.push(link);
             }
-        }));
+        }));*/
 
         return NextResponse.json(uploadedLinks, { status: 200 });
     } catch (e: any) {
