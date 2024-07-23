@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    "target": "es5", // Set the JavaScript target version
+    "module": "commonjs", // Set the module system
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ], // Specify library files
+    "allowJs": true, // Allow JavaScript files to be compiled
+    "skipLibCheck": true, // Skip type checking of all declaration files
+    "esModuleInterop": true, // Enables emit interoperability between CommonJS and ES Modules
+    "allowSyntheticDefaultImports": true, // Allow default imports from modules with no default export
+    "strict": true, // Enable all strict type-checking options
+    "forceConsistentCasingInFileNames": true, // Ensure consistent casing in file names
+    "noEmit": true, // Do not emit output files
+    "isolatedModules": true, // Ensure each file can be safely transpiled independently
+    "jsx": "preserve", // Keep JSX as-is (for React)
+    "baseUrl": "./", // Base directory for resolving non-relative module names
+    "paths": {
+      "@/*": [
+        "src/*"
+      ] // Map `@` to the `src` directory
+    },
+    "incremental": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": [
+    "src",
+    ".next/types/**/*.ts"
+  ], // Specify the directory for TypeScript files
+  "exclude": [
+    "node_modules",
+    "build"
+  ] // Exclude directories from compilation
+}
