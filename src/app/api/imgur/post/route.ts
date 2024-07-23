@@ -6,13 +6,14 @@ myHeaders.append("Authorization", `Bearer ${process.env.IMGUR_BEARER}`);
 export async function POST(req: Request) {
     const uploadedLinks: string[] = [];
     try {
+        /*
         const formData = await req.formData();
         console.log('FormData:', formData);
 
         const postAttachments = formData.getAll('attachments[]');
         console.log('Attachments:', postAttachments);
 
-        /*await Promise.all(postAttachments.map(async (attachment) => {
+        await Promise.all(postAttachments.map(async (attachment) => {
             if (attachment instanceof File) {
                 const link = await uploadFile(attachment);
                 if (link) uploadedLinks.push(link);
