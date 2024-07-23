@@ -13,12 +13,22 @@ export async function POST(req: Request) {
     const postContent = formData.get('postContent')
     const postAttachments = formData.getAll('attachments[]');
     let attachments;
+    console.log('type of att is', typeof postAttachments)
+    const keys = Object.keys(postAttachments);
+    console.log(keys);
 
     if (postAttachments.length > 0) {
+
+      // Send only the attachments to the API
+      const formDataAttachments = new FormData();
+      postAttachments.forEach(value => {
+        formDataAttachments.append('attachments[]', value)
+      });
       const response = await fetch(`${process.env.NEXTAUTH_URL}/api/imgur/post`, {
         method: 'POST',
-        body: formData,
-      })
+        body: formDataAttachments,
+      });
+      
       attachments = await response.json()
       if(response.ok) {
         console.log('uploaded and link =', attachments)

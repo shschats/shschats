@@ -8,7 +8,7 @@ export async function POST(req: Request) {
     try {
         const formData = await req.formData();
         const postAttachments = formData.getAll('attachments[]');
-        console.log('FormData:', formData);
+        console.log('FormData rec is:', formData);
 
         await Promise.all(postAttachments.map(async (attachment) => {
             if (attachment instanceof File) {
