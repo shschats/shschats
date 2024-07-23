@@ -7,7 +7,7 @@ export async function POST(req: Request) {
     const uploadedLinks: string[] = [];
     try {
         const formData = await req.formData();
-        /*const postAttachments = formData.getAll('attachments[]');
+        const postAttachments = formData.getAll('attachments[]');
         console.log('FormData:', formData);
 
         await Promise.all(postAttachments.map(async (attachment) => {
@@ -15,7 +15,7 @@ export async function POST(req: Request) {
                 const link = await uploadFile(attachment);
                 if (link) uploadedLinks.push(link);
             }
-        }));*/
+        }));
 
         return NextResponse.json(uploadedLinks, { status: 200 });
     } catch (e: any) {
@@ -36,9 +36,6 @@ async function uploadFile(file: File): Promise<string | null> {
             headers: myHeaders,
             body: formData,
         });
-
-        console.log('Imgur Response Status:', responseImgur.status);
-        console.log('Imgur Response Text:', await responseImgur.text());
 
         if (responseImgur.ok) {
             const result = await responseImgur.json();
