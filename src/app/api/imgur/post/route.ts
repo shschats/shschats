@@ -5,10 +5,12 @@ myHeaders.append("Authorization", `Bearer ${process.env.IMGUR_BEARER}`);
 
 export async function POST(req: Request) {
     const uploadedLinks: string[] = [];
-
     try {
         const formData = await req.formData();
+        console.log('FormData:', formData);
+
         const postAttachments = formData.getAll('attachments[]');
+        console.log('Attachments:', postAttachments);
 
         await Promise.all(postAttachments.map(async (attachment) => {
             if (attachment instanceof File) {
@@ -25,21 +27,20 @@ export async function POST(req: Request) {
 }
 
 async function uploadFile(file: File): Promise<string | null> {
-    const formData = new FormData();
-    formData.append(file.type.startsWith('image') ? 'image' : 'video', file);
-
-    // Log the FormData contents
-    const entries = Array.from(formData.entries());
-    entries.forEach(([key, value]) => {
-        console.log(`FormData entry: ${key} = ${value}`);
-    });
-
     try {
+        const formData = new FormData();
+        formData.append(file.type.startsWith('image') ? 'image' : 'video', file);
+
+        console.log('Upload FormData Entries:', Array.from(formData.entries()));
+
         const responseImgur = await fetch("https://api.imgur.com/3/upload", {
             method: "POST",
             headers: myHeaders,
             body: formData,
         });
+
+        console.log('Imgur Response Status:', responseImgur.status);
+        console.log('Imgur Response Text:', await responseImgur.text());
 
         if (responseImgur.ok) {
             const result = await responseImgur.json();
@@ -49,7 +50,7 @@ async function uploadFile(file: File): Promise<string | null> {
             return null;
         }
     } catch (error) {
-        console.error('Upload error:', error);
+        console.error('Error uploading file:', error);
         return null;
     }
 }
