@@ -2,8 +2,10 @@ import { ChatsModel } from "@/app/lib/Schemas";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
+  console.log(`-1`)
   const uploadedLinks: string[] = [];
   try {
+    console.log(`-3`)
     const formData = await req.formData();
     const author = formData.get("author") as string;
     const authorEmail = formData.get("authorEmail") as string;
@@ -12,6 +14,7 @@ export async function POST(req: Request) {
     const postAttachments = formData.getAll("attachments[]");
 
     if (postAttachments.length > 0) {
+      console.log(`-5`)
       await Promise.all(
         postAttachments.map(async (attachment) => {
           if (attachment instanceof File) {
@@ -20,6 +23,7 @@ export async function POST(req: Request) {
           }
         })
       );
+      console.log(`-7`)
     }
 
     const newPost = new ChatsModel({

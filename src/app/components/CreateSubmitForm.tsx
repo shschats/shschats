@@ -93,7 +93,7 @@ export default function CreateSubmitForm({ session }: any) {
       setLoading(false);
       router.push("/chats/create/success");
     } else {
-      console.error("Error:", response.statusText);
+      console.log("Error:", response.statusText);
       setLoading(false);
     }
   }
