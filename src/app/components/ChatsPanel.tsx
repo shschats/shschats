@@ -28,11 +28,11 @@ export default async function ChatsPanel({ page }: any) {
   const data = await response.json();
 
   return (
-    <div className="h-screen m-auto flex flex-col items-center lg:py-5 py-2 overflow-hidden pb-7">
+    <div className="h-screen m-auto flex flex-col items-center lg:py-5 py-2">
       <div className="lg:text-5xl text-3xl lg:p-7 text-shsyellow">shs chats</div>
       <SignOutBtn className="text-shsyellow py-2"/>
 
-      <div className=" lg:w-2/4 md:w-3/4 sm:w-3/4 w-3/4 border-4 border-solid border-black bg-shsgreen flex flex-col outline min-h-0 rounded-md lg:gap-2 relative flex-grow">
+      <div className=" lg:w-2/4 md:w-3/4 sm:w-3/4 w-3/4 border-4 border-solid border-black bg-shsgreen flex flex-col outline min-h-0 rounded-md lg:gap-2 relative">
 
         {data.map(
           (post: { _id: string; author: string; postTitle: string }) => (
