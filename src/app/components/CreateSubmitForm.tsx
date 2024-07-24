@@ -36,7 +36,6 @@ export default function CreateSubmitForm({ session }: any) {
       fileReader.onload = () => {
         const filePreview = fileReader.result as string;
 
-        // Check video duration if the file is a video
         if (file.type.startsWith("video")) {
           const video = document.createElement("video");
           video.src = filePreview;
@@ -46,7 +45,6 @@ export default function CreateSubmitForm({ session }: any) {
               sendNotification(true);
               return;
             }
-            // Only add the video to previews if duration is valid
             setPreviews((prev) => [...prev, filePreview]);
           };
         } else {
