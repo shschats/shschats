@@ -19,6 +19,7 @@
 body {
   color: rgb(var(--foreground-rgb));
   background-color: white;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 @layer utilities {
