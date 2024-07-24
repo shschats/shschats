@@ -16,7 +16,9 @@ export async function POST(req: Request) {
         // Ensure we are dealing with multipart/form-data
         if (contentType && contentType.startsWith('multipart/form-data')) {
             // Attempt to parse formData
+            console.log('here b4')
             const formData = await req.formData();
+            console.log('here after')
 
             // Log the formData entries
             console.log('FormData received:', Array.from(formData.entries()));
