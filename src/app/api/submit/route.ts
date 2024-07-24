@@ -18,9 +18,15 @@ export async function POST(req: Request) {
     console.log(keys);
 
     if (postAttachments.length > 0) {
+
+      // Send only the attachments to the API
+      const formDataAttachments = new FormData();
+      postAttachments.forEach(value => {
+        formDataAttachments.append('attachments[]', value)
+      });
       const response = await fetch(`${process.env.NEXTAUTH_URL}/api/imgur/post`, {
         method: 'POST',
-        body: formData,
+        body: formDataAttachments,
       });
       
       attachments = await response.json()

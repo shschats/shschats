@@ -10,7 +10,6 @@ import { FormEvent, useEffect, useState } from "react";
 import Notification from "./Notification";
 import { useRouter } from "next/navigation";
 import RedirectBtn from "./RedirectBtn";
-import Image from "next/image";
 
 export default function CreateSubmitForm({ session }: any) {
   const [isLoading, setLoading] = useState(false);
@@ -76,7 +75,7 @@ export default function CreateSubmitForm({ session }: any) {
     e.preventDefault();
     setLoading(true);
 
-    const formData = new FormData();
+    const formData = new FormData(e.currentTarget);
     formData.append("author", session?.user?.name);
     formData.append("authorEmail", session?.user?.email);
     formData.append("postTitle", formData.get("postTitle") as string);
