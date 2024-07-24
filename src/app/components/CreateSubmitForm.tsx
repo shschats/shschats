@@ -76,7 +76,7 @@ export default function CreateSubmitForm({ session }: any) {
     e.preventDefault();
     setLoading(true);
 
-    const formData = new FormData(e.currentTarget);
+    const formData = new FormData();
     formData.append("author", session?.user?.name);
     formData.append("authorEmail", session?.user?.email);
     formData.append("postTitle", formData.get("postTitle") as string);
