@@ -118,7 +118,7 @@ export default function CreateSubmitForm({ session }: any) {
 
           <textarea
             name="postContent"
-            className="required text-black p-2 resize-none h-96 text-md w-full bg-gray-200 outline-gray-400 outline-2 outline rounded-sm focus:outline-shsyellow focus:bg-gray-100 focus:fade-in-color caret-black"
+            className="required text-black p-2 h-full max-h-96 resize-none text-md w-full bg-gray-200 outline-gray-400 outline-2 outline rounded-sm focus:outline-shsyellow focus:bg-gray-100 focus:fade-in-color caret-black"
             required
             maxLength={1000}
           ></textarea>
@@ -145,8 +145,7 @@ export default function CreateSubmitForm({ session }: any) {
               </div>
             ))}
           </div>
-          <div className="flex-grow" />
-          <div className="flex w-full justify-between">
+          <div className="flex w-full justify-between mt-auto">
             <RedirectBtn
               className="flex items-center p-3 bg-shsyellow text-black rounded-sm hover:bg-shsdarkyellow transition duration-200 shadow-black shadow-sm"
               url="/chats"
