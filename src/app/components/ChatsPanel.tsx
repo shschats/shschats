@@ -28,7 +28,7 @@ export default async function ChatsPanel({ page }: any) {
   const data = await response.json();
 
   return (
-    <div className="h-screen m-auto flex flex-col items-center lg:py-5 py-2">
+    <div className="lg:h-screen m-auto flex flex-col items-center lg:py-5 py-2">
       <div className="lg:text-5xl text-3xl lg:p-7 text-shsyellow">shs chats</div>
       <SignOutBtn className="text-shsyellow py-2"/>
 
