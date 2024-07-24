@@ -15,9 +15,14 @@ export async function POST(req: Request) {
 
         // Ensure we are dealing with multipart/form-data
         if (contentType && contentType.startsWith('multipart/form-data')) {
+            // Attempt to parse formData
             const formData = await req.formData();
-            const postAttachments = formData.getAll('attachments[]');
+
+            // Log the formData entries
             console.log('FormData received:', Array.from(formData.entries()));
+
+            const postAttachments = formData.getAll('attachments[]');
+            console.log('Post Attachments:', postAttachments);
 
             await Promise.all(postAttachments.map(async (attachment) => {
                 if (attachment instanceof File) {
