@@ -6,6 +6,7 @@ myHeaders.append("Authorization", `Bearer ${process.env.IMGUR_BEARER}`);
 export async function POST(req: Request) {
     const uploadedLinks: string[] = [];
     try {
+        console.log('body prelog:', req.body)
         const formData = await req.formData();
         const postAttachments = formData.getAll('attachments[]');
         console.log('FormData rec is:', formData);
