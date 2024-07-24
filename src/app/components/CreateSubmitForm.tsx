@@ -101,7 +101,7 @@ export default function CreateSubmitForm({ session }: any) {
   }
 
   return (
-    <main className="flex justify-center py-10 px-3 min-h-screen relative">
+    <div className="flex justify-center py-10 px-3 min-h-screen relative lg:py-5 pb-28">
       <div className="bg-shsgreen border-4 border-solid border-black rounded-md lg:w-3/5 w-full py-6 flex flex-col items-center shadow-black shadow-sm relative">
         <form
           onSubmit={handleSubmit}
@@ -179,6 +179,6 @@ export default function CreateSubmitForm({ session }: any) {
         </form>
       </div>
       {showNotification && <Notification message={notificationMessage} />}
-    </main>
+    </div>
   );
 }

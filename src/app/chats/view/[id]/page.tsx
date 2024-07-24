@@ -22,7 +22,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   const data = (await ChatsModel.findById(id)) as Post;
   if (data === null) return <FailedToLoadData />;
   return (
-    <div className="text-white flex flex-col justify-center items-center lg:p-20 p-3 text-3xl min-h-screen">
+    <div className="text-white flex flex-col justify-center items-center lg:p-20 p-3 text-3xl min-h-screen lg:py-5 py-2 pb-28">
       <div className="bg-shsgreen p-3 lg:w-3/4 w-full h-full flex flex-col gap-6 rounded-2xl flex-grow">
         <div className="flex justify-between text-left">
           <div>{data.postTitle}</div>
@@ -44,7 +44,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           return isVideo ? (
             <video key={attachment} src={attachment} controls className="lg:max-h-48 max-h-32 bg-gray-100 border border-gray-300 object-scale-down" />
           ) : (
-            <img key={attachment} src={attachment} alt="Attachment" className="lg:max-h-48 max-h-32 bg-gray-100 border border-gray-300 object-scale-down" />
+            <Image key={attachment} src={attachment} alt="Attachment" className="lg:max-h-48 max-h-32 bg-gray-100 border border-gray-300 object-scale-down" />
           );
         })}
         </div>

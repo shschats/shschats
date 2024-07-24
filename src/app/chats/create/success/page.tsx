@@ -29,7 +29,7 @@ export default function Page() {
   }, [redirectTimer]);
 
   return (
-    <div className="text-shsyellow flex h-screen justify-center text-center lg:p-20 p-3 text-3xl">
+    <div className="text-shsyellow flex h-screen justify-center text-center lg:p-20 p-3 text-3xl lg:py-5 py-2 pb-28">
       <div className="bg-shsgreen p-10 lg:px-52 flex flex-col lg:gap-40 gap-24 rounded-2xl">
         <p>Posted Successfully!</p>
         <p>Returning to the main page in... {redirectTimer}</p>
