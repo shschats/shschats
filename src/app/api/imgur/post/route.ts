@@ -6,38 +6,16 @@ myHeaders.append("Authorization", `Bearer ${process.env.IMGUR_BEARER}`);
 export async function POST(req: Request) {
     const uploadedLinks: string[] = [];
     try {
-        // Log the request headers
-        console.log('Request Headers:', req.headers);
+        const formData = await req.formData();
+        const postAttachments = formData.getAll('attachments[]');
+        console.log('FormData rec is:', formData);
 
-        // Check content type
-        const contentType = req.headers.get('content-type');
-        console.log('Content-Type:', contentType);
-
-        // Ensure we are dealing with multipart/form-data
-        if (contentType && contentType.startsWith('multipart/form-data')) {
-            // Attempt to parse formData
-            console.log('here b4')
-            const formData = await req.formData();
-            console.log('here b4')
-
-            // Log the formData entries
-            console.log('FormData received:', Array.from(formData.entries()));
-
-            const postAttachments = formData.getAll('attachments[]');
-            console.log('Post Attachments:', postAttachments);
-
-            await Promise.all(postAttachments.map(async (attachment) => {
-                if (attachment instanceof File) {
-                    const link = await uploadFile(attachment);
-                    if (link) uploadedLinks.push(link);
-                } else {
-                    console.warn('Expected File object but received:', attachment);
-                }
-            }));
-        } else {
-            console.error('Invalid content type:', contentType);
-            return new NextResponse(JSON.stringify('failed'), { status: 400 });
-        }
+        await Promise.all(postAttachments.map(async (attachment) => {
+            if (attachment instanceof File) {
+                const link = await uploadFile(attachment);
+                if (link) uploadedLinks.push(link);
+            }
+        }));
 
         return NextResponse.json(uploadedLinks, { status: 200 });
     } catch (e: any) {
