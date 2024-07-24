@@ -6,7 +6,7 @@ myHeaders.append("Authorization", `Bearer ${process.env.IMGUR_BEARER}`);
 export async function POST(req: Request) {
     const uploadedLinks: string[] = [];
     try {
-        const formData = await req.formData();/*
+        const formData = await req.formData();
         const postAttachments = formData.getAll('attachments[]');
         console.log('FormData rec is:', formData);
 
@@ -16,7 +16,7 @@ export async function POST(req: Request) {
                 if (link) uploadedLinks.push(link);
             }
         }));
-            */
+            
         return NextResponse.json(uploadedLinks, { status: 200 });
     } catch (e: any) {
         console.error('Error:', e);
