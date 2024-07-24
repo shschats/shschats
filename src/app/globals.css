@@ -34,3 +34,9 @@ body {
 .hover\:fade-in-color {
   transition: background-color .2s ease;
 }
+
+@media (max-width: 640px) {
+  .custom-max-height {
+    min-height: calc(100vh - env(safe-area-inset-bottom));
+  }
+}
