@@ -44,7 +44,10 @@ myHeaders.append("Authorization", `Bearer ${process.env.IMGUR_BEARER}`);
 async function uploadFile(file: File): Promise<string | null> {
   try {
     const formData = new FormData();
-    formData.append(file.type.startsWith("image") ? "image" : "video", file);
+    const isImage = file.type.startsWith("image");
+    const isVideo = file.type.startsWith("video");
+    
+    formData.append(isImage ? "image" : isVideo ? "video" : "file", file);
 
     const responseImgur = await fetch("https://api.imgur.com/3/upload", {
       method: "POST",
@@ -56,7 +59,8 @@ async function uploadFile(file: File): Promise<string | null> {
       const result = await responseImgur.json();
       return result.data.link;
     } else {
-      console.error("Upload failed:", responseImgur.statusText);
+      const errorDetails = await responseImgur.text();
+      console.error("Upload failed:", responseImgur.status, responseImgur.statusText, errorDetails);
       return null;
     }
   } catch (error) {
@@ -64,3 +68,4 @@ async function uploadFile(file: File): Promise<string | null> {
     return null;
   }
 }
+
