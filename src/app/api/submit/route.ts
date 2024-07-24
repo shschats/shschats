@@ -1,6 +1,12 @@
 import { ChatsModel } from "@/app/lib/Schemas";
 import { NextResponse } from "next/server";
 
+export const config = {
+  api: {
+      bodyParser: false,
+  },
+};
+
 export async function POST(req: Request) {
   console.log('got it');
   try {
