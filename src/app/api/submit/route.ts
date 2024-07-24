@@ -14,19 +14,10 @@ export async function POST(req: Request) {
 
     let attachments: any[] = [];
     if (postAttachments.length > 0) {
-      // Prepare FormData for Imgur API
-      const formDataAttachments = new FormData();
-      postAttachments.forEach((value) => {
-        if (value instanceof File) {
-          formDataAttachments.append('attachments[]', value, value.name); // include filename
-        } else {
-          console.warn('Expected File object but received:', value);
-        }
-      });
 
       const response = await fetch(`${process.env.NEXTAUTH_URL}/api/imgur/post`, {
         method: 'POST',
-        body: formDataAttachments,
+        body: formData,
       });
 
       if (response.ok) {

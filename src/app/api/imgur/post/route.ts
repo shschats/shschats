@@ -18,7 +18,7 @@ export async function POST(req: Request) {
             // Attempt to parse formData
             console.log('here b4')
             const formData = await req.formData();
-            console.log('here after')
+            console.log('here b4')
 
             // Log the formData entries
             console.log('FormData received:', Array.from(formData.entries()));
