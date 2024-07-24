@@ -5,8 +5,6 @@ export async function POST(req: Request) {
   console.log('got it')
   try {
     const formData = await req.formData();
-    let body = Object.fromEntries(formData);
-    /*
     const author = formData.get('author')
     const authorEmail = formData.get('authorEmail')
 
@@ -46,7 +44,7 @@ export async function POST(req: Request) {
       postAttachments: attachments,
     })
     newPost.save()
-    */
+    
     return new NextResponse(JSON.stringify('success'), { status: 200 });
   } catch(e: any) {
     console.error('Error:', e);
