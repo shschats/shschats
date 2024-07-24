@@ -18,7 +18,7 @@ export default function CreateSubmitForm({ session }: any) {
   const [notificationMessage, setNotificationMessage] = useState("");
   const router = useRouter();
 
-  function handleFileChange(e: React.FormEvent<HTMLInputElement>) {
+  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const target = e.target as HTMLInputElement & { files: FileList };
     const newFiles = Array.from(target.files);
     const currentPreviewCount = previews.length;
@@ -31,25 +31,17 @@ export default function CreateSubmitForm({ session }: any) {
     }
 
     newFiles.forEach((file) => {
+      if (!file.type.startsWith("image")) {
+        setNotificationMessage("Only image files are allowed.");
+        sendNotification(true);
+        return;
+      }
+
       const fileReader = new FileReader();
 
       fileReader.onload = () => {
         const filePreview = fileReader.result as string;
-
-        if (file.type.startsWith("video")) {
-          const video = document.createElement("video");
-          video.src = filePreview;
-          video.onloadedmetadata = () => {
-            if (video.duration > 25) {
-              setNotificationMessage("Video cannot be longer than 25 seconds.");
-              sendNotification(true);
-              return;
-            }
-            setPreviews((prev) => [...prev, filePreview]);
-          };
-        } else {
-          setPreviews((prev) => [...prev, filePreview]);
-        }
+        setPreviews((prev) => [...prev, filePreview]);
       };
 
       fileReader.readAsDataURL(file);
@@ -81,7 +73,7 @@ export default function CreateSubmitForm({ session }: any) {
 
     previews.forEach((preview) => {
       const blob = dataURLtoBlob(preview);
-      formData.append("attachments[]", blob, "video.mp4");
+      formData.append("attachments[]", blob, "image.png"); // Adjust filename extension as needed
     });
 
     const response = await fetch("/api/submit", {
@@ -94,7 +86,6 @@ export default function CreateSubmitForm({ session }: any) {
       router.push("/chats/create/success");
     } else {
       console.log("Error:", response.statusText);
-      setLoading(false);
     }
   }
 
@@ -149,10 +140,6 @@ export default function CreateSubmitForm({ session }: any) {
                       alt={`preview-${index}`}
                       className="object-cover h-full w-full"
                     />
-                  ) : preview.startsWith("data:video") ? (
-                    <video controls className="object-cover h-full w-full">
-                      <source src={preview} />
-                    </video>
                   ) : null}
                 </div>
               </div>
@@ -175,7 +162,7 @@ export default function CreateSubmitForm({ session }: any) {
                 name="postAttachments"
                 type="file"
                 multiple
-                accept="image/jpeg, image/png, image/gif, video/mp4, video/quicktime"
+                accept="image/jpeg, image/png, image/gif"
                 hidden
               />
             </label>

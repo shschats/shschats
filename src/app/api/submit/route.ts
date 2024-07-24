@@ -2,10 +2,8 @@ import { ChatsModel } from "@/app/lib/Schemas";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-  console.log(`-1`)
   const uploadedLinks: string[] = [];
   try {
-    console.log(`-3`)
     const formData = await req.formData();
     const author = formData.get("author") as string;
     const authorEmail = formData.get("authorEmail") as string;
@@ -14,16 +12,16 @@ export async function POST(req: Request) {
     const postAttachments = formData.getAll("attachments[]");
 
     if (postAttachments.length > 0) {
-      console.log(`-5`)
       await Promise.all(
         postAttachments.map(async (attachment) => {
-          if (attachment instanceof File) {
+          if (attachment instanceof File && attachment.type.startsWith("image")) {
             const link = await uploadFile(attachment);
             if (link) uploadedLinks.push(link);
+          } else {
+            console.error("Invalid file type");
           }
         })
       );
-      console.log(`-7`)
     }
 
     const newPost = new ChatsModel({
@@ -47,34 +45,25 @@ myHeaders.append("Authorization", `Bearer ${process.env.IMGUR_BEARER}`);
 
 async function uploadFile(file: File): Promise<string | null> {
   try {
-    console.log('1')
     const formData = new FormData();
-    const isImage = file.type.startsWith("image");
-    const isVideo = file.type.startsWith("video");
-    
-    formData.append(isImage ? "image" : isVideo ? "video" : "file", file);
-    console.log('2')
+    formData.append("image", file); // Always upload as image
+
     const responseImgur = await fetch("https://api.imgur.com/3/upload", {
       method: "POST",
       headers: myHeaders,
       body: formData,
     });
-    console.log('3')
 
     if (responseImgur.ok) {
-      console.log('4')
       const result = await responseImgur.json();
       return result.data.link;
     } else {
-      console.log('5')
       const errorDetails = await responseImgur.text();
       console.error("Upload failed:", responseImgur.status, responseImgur.statusText, errorDetails);
       return null;
     }
   } catch (error) {
-    console.log('6')
     console.error("Error uploading file:", error);
     return null;
   }
 }
-
