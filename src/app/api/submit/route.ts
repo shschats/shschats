@@ -13,11 +13,13 @@ export async function POST(req: Request) {
     const postAttachments = formData.getAll('attachments[]');
 
     let attachments: any[] = [];
+    console.log('form data:', formData)
     if (postAttachments.length > 0) {
 
       const response = await fetch(`${process.env.NEXTAUTH_URL}/api/imgur/post`, {
         method: 'POST',
         body: formData,
+        headers: { 'Content-Type': 'multipart/form-data' }
       });
 
       if (response.ok) {
